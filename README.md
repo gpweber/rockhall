@@ -1,2 +1,3 @@
 # rockhall
-Documents related to the rockhall Shiny app project
+Documents related to Gregory Weber's Rock & Roll Hall of Fame
+Spotify Playlist Shiny app project
