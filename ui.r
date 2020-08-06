@@ -1,19 +1,21 @@
-library(shiny)    
-ui <- fluidPage(
+dashboardPage(
+  dashboardHeader(title = "Rock & Roll Hall of Fame Spotify Playlists"),
   
-  ###Input(inputId = "playlist", 
-            label = "Playlist",  ) ,
-  
-  
-  ###Output$playlist( 
-  )
-  
-server <- function(input, output) {         
-  output$playlist <- renderPlot({
-    ##_______(input$Playlist)
+  dashboardSidebar(
+    sidebarUserPanel("Created by Gregory Weber")
+    sidebarMenu(
+      menuItem('Artist Frequency', tabName = 'artist' , icon = 'drum'),
+      menuItem("Spotify's Popularity Ranking",tabName = 'popularity' , icon = 'spotify'),
+      menuItem('Duration', tabName = 'duration', icon = 'headphones'),
+      menuItem("Learn more about App's Creator: Gregory Weber", tabName = 'author', icon = 'info')
+    ),
     
-  }  )                                      
-  
-  
-shinyApp(ui = ui, server = server)
-  
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = 'artist'),
+        fluidRow()
+    )
+    )
+    valueBox(100, "Basic example"),
+    tableOutput("some_datafram")
+  )
