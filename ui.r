@@ -11,8 +11,8 @@ dashboardPage(skin = 'black',
     sidebarMenu(
       menuItem('Artist Frequency', tabName = 'artist' , icon = icon('drum')),
       menuItem("Spotify's Popularity Ranking",tabName = 'popularity' , icon = icon('spotify')),
-      menuItem('Duration', tabName = 'duration', icon = icon('headphones')),
-      menuItem("Learn more about App's Creator: Gregory Weber", tabName = 'author', icon = icon('info'))
+      menuItem('Duration', tabName = 'duration', icon = icon('headphones'))
+     # menuItem("Learn more about App's Creator: Gregory Weber", tabName = 'author', icon = icon('info'))
     )   
   ),
     
@@ -21,18 +21,19 @@ dashboardPage(skin = 'black',
     tabItems(
       #???fluidRow( ???
       tabItem(tabName = 'artist',
-              fluidRow(
-                selectizeInput(
-                    inputId = '1-5',
-                    label = "Choose Top 1-5",
-                            choices = c(1:5)
-                )
-              )
-              #  box(plotOutput('artist')),
+          fluidRow(
+            selectizeInput(
+                inputId = '1-5',
+                label = "Choose Top 1-5",
+                        choices = c(1:5)
+            ),
+            plotOutput('artist'),# width = 12)
+          )
+          
       ),
       tabItem(tabName = 'popularity',
               sliderInput(
-                inputId = "Also1-5",
+                inputId = "Also 1-5",
                 label = "View the 5 Most Popular Artists",
                 min = 1,
                 max = 5,
