@@ -24,7 +24,7 @@ dashboardPage(skin = 'black',
               fluidRow(
                 selectizeInput(
                     inputId = '1-5',
-                    label = "Choose Top, from 1-5",
+                    label = "Choose Top 1-5",
                             choices = c(1:5)
                 )
               )
