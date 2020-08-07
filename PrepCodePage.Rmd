@@ -14,8 +14,8 @@ library(tidyr)
 library(data.table)
 
 famer_original = read.csv('famer.csv')
-famer = copy(famer_original)
-tracemem(famer) == tracemem(famer_original)
+famer = famer_original
+
 fun = function(x){
   str_sub(x, 3,-3)
 }
@@ -59,7 +59,7 @@ total_tracks %>%
 ```{r}
 #Tab 2
 #Total popularity plot by track
-topten_popularity = famer_original %>%    ###trying to figure out how to find top playlists by popularity
+topten_popularity = famer_original %>%    
   arrange(popularity) %>%
   select(playlist_name, track_name, popularity, track_artists) %>% 
   mutate(pop_rank_decimal = rank(-popularity)) %>% 

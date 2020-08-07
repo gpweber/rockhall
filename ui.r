@@ -1,30 +1,50 @@
-shinyUI(dashboardPage(
-  dashboardHeader(title = "Rock & Roll Hall of Fame Spotify Playlists", 
-                  image = 'rockhall_spotify.png'  )
-              ),
+dashboardPage(skin = 'black',
+  dashboardHeader(title = "Rock & Roll Hall of Fame Spotify Playlists" #,
+                  #image = img(src = 'rockhall_spotify.png')              NEITHER WORKED
+                  #image = 'rockhall_spotify.png'#titleWidth = 225), 
+  ),
+              
   
   dashboardSidebar(
-    sidebarUserPanel("Created by Gregory Weber", image = 'IMG_3969.JPG'),
+    #width = 225
+   # sidebarUserPanel("Gregory Weber", image = img(src = 'IMG_3969.JPG')), #???Need this???
     sidebarMenu(
-      menuItem('Artist Frequency', tabName = 'artist' , icon = 'drum'),
-      menuItem("Spotify's Popularity Ranking",tabName = 'popularity' , icon = 'spotify'),
-      menuItem('Duration', tabName = 'duration', icon = 'headphones'),
-      menuItem("Learn more about App's Creator: Gregory Weber", tabName = 'author', icon = 'info')
-                  )   
-              ),
+      menuItem('Artist Frequency', tabName = 'artist' , icon = icon('drum')),
+      menuItem("Spotify's Popularity Ranking",tabName = 'popularity' , icon = icon('spotify')),
+      menuItem('Duration', tabName = 'duration', icon = icon('headphones')),
+      menuItem("Learn more about App's Creator: Gregory Weber", tabName = 'author', icon = icon('info'))
+    )   
+  ),
     
   dashboardBody(
+    #tags$head
     tabItems(
       #???fluidRow( ???
       tabItem(tabName = 'artist',
-                box(plotOutput('artist')),
+              fluidRow(
+                selectizeInput(
+                    inputId = '1-5',
+                    label = "Choose Top, from 1-5",
+                            choices = c(1:5)
+                )
+              )
+              #  box(plotOutput('artist')),
+      ),
       tabItem(tabName = 'popularity',
-              '3 options: Boxplot for each album, 
-              with dotplot option & violin option'),
+              sliderInput(
+                inputId = "Also1-5",
+                label = "View the 5 Most Popular Artists",
+                min = 1,
+                max = 5,
+                value = 1,
+                step = 1
+              )
+      ),
+              # boxplot?
       tabItem(tabName = 'duration',
+              
               'per album..show song lengths of tracks 
               with geom_line(need dot to say name of track)')
-      
-              )
-          )
+    )
   )
+)

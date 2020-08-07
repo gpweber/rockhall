@@ -1,5 +1,4 @@
 shinyServer(function(input, output) {
-    output$artist = renderPlot({
+   # output$artist = renderPlot({
       
-    })
-  })
+})
