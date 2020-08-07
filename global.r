@@ -5,8 +5,8 @@ library(RColorBrewer)
 library(tidyr)
 #csv of RockHall playlists from spotify
 #obtained with spotipy using python
-famer = read.csv('famer.csv')
-
+famer_original = read.csv('famer.csv')
+famer
 # create function to remove first 2 and last 2 characters of a string
 fun = function(x){
   str_sub(x, 3,-3)

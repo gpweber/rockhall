@@ -15,8 +15,9 @@ shinyUI(dashboardPage(
     
   dashboardBody(
     tabItems(
+      #???fluidRow( ???
       tabItem(tabName = 'artist',
-              'to be replace with sideways bargraph'),
+                box(plotOutput('artist')),
       tabItem(tabName = 'popularity',
               '3 options: Boxplot for each album, 
               with dotplot option & violin option'),
