@@ -28,6 +28,8 @@ famer$number_of_artists[2883] = 8
 
 ############create dataframe with artist counts#####################
 #combine the 5 artist columns into one vector
+famer_index = famer
+rownames(famer_index) <- famer_index$playlist_name
 x = unlist(famer[4:8])
 
 #remove the NA's
