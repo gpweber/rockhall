@@ -1,5 +1,2 @@
-dashboardPage(
-  dashboardHeader(title= ),
-    
-  }  )                                      
-  
+shinyServer(function(input, output){
+})
