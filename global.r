@@ -64,11 +64,3 @@ topten_popularity = famer_original %>%
   mutate(pop_rank_integer = as.numeric(ordered(pop_rank_decimal))) %>% 
   arrange(pop_rank_integer) %>% 
   filter(pop_rank_integer <=3)
-
-
-#####DON'T NEED?
-ggplot(topten_popularity, mapping = aes(y = popularity, x = pop_rank_integer, fill = track_artists)) +
-  geom_col() +
-  geom_label(label= topten_popularity$track_name ) +
-  labs(title = "Top Tracks by Spotify's Popularity Index" , y ='Popularity' , x = 'Performer' ) +
-  guides(fill = guide_legend(title.them = element_blank, reverse = TRUE, title = 'Artist'))
