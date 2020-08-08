@@ -6,6 +6,7 @@ library(tidyr)
 library(DT)
 library(googleVis)
 library(tibble)
+library(plotly)
 #csv of RockHall playlists from spotify
 #obtained with spotipy using python
 famer_original = read.csv('famer.csv')

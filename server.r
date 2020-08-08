@@ -1,5 +1,5 @@
 shinyServer(function(input, output) {
-  output$artistPlot = renderPlot({
+  output$artist = renderPlot(  # { needed?? ##removed Plot from output$artistPlot...first graph!!
     ### tab #1 ###
     # number of artist appearances
     ##Next Step: make it so that slider starts with just #1...then slide to more
@@ -11,5 +11,6 @@ shinyServer(function(input, output) {
       labs(title = "Which Artists appear most?", y ='Number of tracks' , x = 'Performer' ) +
       coord_flip() +
       theme(legend.position = "none")     
-   })      
+#   }
+    )      
 })

@@ -1,5 +1,5 @@
 dashboardPage(skin = 'black',
-  dashboardHeader(title = "Rock & Roll Hall of Fame Spotify Playlists" #,
+  dashboardHeader(title = "Rock&RollHallOfFame Spotify Playlists" #,
                   #image = img(src = 'rockhall_spotify.png')              NEITHER WORKED
                   #image = 'rockhall_spotify.png'#titleWidth = 225), 
   ),
