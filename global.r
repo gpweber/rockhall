@@ -47,6 +47,7 @@ x2 = as.data.frame(x1)
 x3 = x2 %>% 
   rbind('Yo Gotti', 'Quavo', 'Desiigner', 'Paul Shaffer', 'Metallica')
 
+### For tab - artist ###
 #create total_tracks dataframe with tallies for number of tracks per artist
 total_tracks = x3 %>% 
   count(x1, sort = TRUE, name = "Total_Artist_Tracks")
@@ -55,7 +56,7 @@ total_tracks = x3 %>%
 total_tracks = total_tracks %>%  rename(Artist = x1)
 
 
-### For tab 2 ###
+### For tab - popularity ###
 ##Plot1##
 #Total popularity plot by track
 topten_popularity = famer_original %>%    
@@ -73,3 +74,15 @@ popularity_playlist = famer %>%
   summarize(playlist_average = mean(popularity)) %>% 
   arrange(desc(playlist_average)) 
 
+##For tab - duration###
+#convert milliseconds to rounded minutes and seconds
+min_sec_famer = famer_original %>% 
+  mutate(track_length = new_hms(duration_ms%/%1000))
+
+#create a playlists list
+unique_playlists = unique(famer$playlist_name)
+
+#create playlist 
+add_order_col = min_sec_famer %>% 
+  group_by(playlist_name) %>% 
+  mutate(row_number = row_number())

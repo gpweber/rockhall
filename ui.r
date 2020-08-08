@@ -57,11 +57,15 @@ dashboardPage(skin = 'black',
             
       tabItem(tabName = 'duration',
               fluidRow(
-                plotOutput('durationPlot')
+                selectInput(
+                  inputId = 'playlist',
+                  label = "Choose Playlist",
+                  choices = unique_playlists,
+                  selected = 1
+                  ),
+                plotOutput('durationPlot1')
               )
-              
-              'per album..show song lengths of tracks 
-              with geom_line(need dot to say name of track)')
+      )
     )
   )
 )
