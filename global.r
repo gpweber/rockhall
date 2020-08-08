@@ -53,9 +53,10 @@ total_tracks = x3 %>%
 
 #change column name to Artist
 total_tracks = total_tracks %>%  rename(Artist = x1)
-#########VISUALS##########
+
 
 ### For tab 2 ###
+##Plot1##
 #Total popularity plot by track
 topten_popularity = famer_original %>%    
   arrange(popularity) %>%
@@ -64,3 +65,11 @@ topten_popularity = famer_original %>%
   mutate(pop_rank_integer = as.numeric(ordered(pop_rank_decimal))) %>% 
   arrange(pop_rank_integer) %>% 
   filter(pop_rank_integer <=3)
+
+##Plot 2##
+#Create popularity by playlist dataframe 
+popularity_playlist = famer %>%    
+  group_by(playlist_name) %>% 
+  summarize(playlist_average = mean(popularity)) %>% 
+  arrange(desc(playlist_average)) 
+

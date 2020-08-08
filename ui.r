@@ -39,10 +39,19 @@ dashboardPage(skin = 'black',
                 label = "View the 3 Most Popular Artists",
                 min = 1,
                 max = 3,
-                value = 1,
-                step = 1
+                value = 1
               ),
-              plotOutput('popularityPlot'),
+              plotOutput('popularityPlot1'),
+            ) ,
+            fluidRow(
+              sliderInput(
+                inputId = "bins",
+                label = "Divide into this many pieces:",
+                min = 2,
+                max = 27,
+                value = 14),
+              
+              plotOutput('popularityPlot2')
             )
       ),
             
