@@ -30,9 +30,10 @@ dashboardPage(skin = 'black',
             ),
             plotOutput('artist'),# width = 12)
           )
-          
       ),
+      
       tabItem(tabName = 'popularity',
+            fluidRow(
               sliderInput(
                 inputId = "SlideOneToFive",
                 label = "View the 5 Most Popular Artists",
@@ -40,9 +41,11 @@ dashboardPage(skin = 'black',
                 max = 5,
                 value = 1,
                 step = 1
-              )
+              ),
+              plotOutput('popularity'),
+            )
       ),
-              # boxplot?
+            
       tabItem(tabName = 'duration',
               
               'per album..show song lengths of tracks 

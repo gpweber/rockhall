@@ -70,19 +70,41 @@ topten_popularity
   
 ```
 ```{r}
+ggplot(topten_popularity, mapping = aes(y = popularity, x = pop_rank_integer, fill = track_artists)) +
+  geom_col() +
+  geom_label(label= topten_popularity$track_name ) +
+  labs(title = "Top Tracks by Spotify's Popularity Index" , y ='Popularity' , x = 'Performer' ) +
+  guides(guide_legend(title.theme = element_blank, reverse = TRUE, title = 'Artist'))
+```
+
+```{r}
+    topten_popularity %>%
+      head(input$popularity)
+      ggplot(mapping = aes(y = popularity, 
+                           x = pop_rank_integer, 
+                           fill = track_artists)) +
+      geom_col() +
+      geom_label(label= topten_popularity$track_name ) +
+      labs(title = "Top Tracks by Spotify's Popularity Index" , 
+           y ='Popularity' , 
+           x = 'Performer' ) +
+      guides(guide_legend(title.them = element_blank, 
+                                 reverse = TRUE,
+                                 title = 'Artist'))
+```
+
+```{r}
 ##would still like to: 
 ##change colors to gold, silver, bronze...change key box next to artist NOT SAY a
 ##change labels to: 
 ##title = 'Top Tracks by Spotify's Popularity Index' 
 ##x = 'Top tracks by Spotify Popularity Index', 
 ##y = 'Spotify Popularity Index'
-ggplot(topten_popularity, mapping = aes(y = popularity, x = pop_rank_integer, fill = track_artists))+
+ggplot(topten_popularity, mapping = aes(y = popularity, x = pop_rank_integer, fill = track_artists)) +
   geom_col() +
-    geom_label(
-    label= topten_popularity$track_name, 
-    nudge_x = 0.1, nudge_y = 0.25, 
-    check_overlap = T
-  )
+  geom_label(label= topten_popularity$track_name ) +
+  labs(title = "Top Tracks by Spotify's Popularity Index" , y ='Popularity' , x = 'Performer' ) +
+  guides(guide_legend(label = TRUE, reverse = TRUE, title = 'Artist'))
 ```
 %>% 
   mutate(pop_rank_integer = as.numeric(ordered(pop_rank_decimal))) %>% 

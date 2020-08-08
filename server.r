@@ -1,5 +1,5 @@
 shinyServer(function(input, output) {
-  output$artist = renderPlot({  # { needed?? ##removed Plot from output$artistPlot...first graph!!
+  output$artist = renderPlot({  
     ### tab #1 ###
     # number of artist appearances
     ##Next Step: make it so that slider starts with just #1...then slide to more
@@ -16,6 +16,20 @@ shinyServer(function(input, output) {
            x = 'Performer' ) +
       coord_flip() +
       theme(legend.position = "none")     
-    }
-    )      
+  })
+  output$popularity = renderPlot({
+    topten_popularity %>%
+      head(3) %>% 
+      ggplot(mapping = aes(y = popularity, 
+                         x = pop_rank_integer, 
+                         fill = track_artists)) +
+      geom_col() +
+      geom_label(label= topten_popularity$track_name ) +
+      labs(title = "Top Tracks by Spotify's Popularity Index" , 
+           y ='Popularity' , 
+           x = 'Performer' ) +
+      guides(guide_legend(title.them = element_blank, 
+                          reverse = TRUE,
+                          title = 'Artist'))
+  })
 })

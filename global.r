@@ -56,7 +56,7 @@ total_tracks = total_tracks %>%  rename(Artist = x1)
 
   
 
-### tab #2 ###
+### For tab 2 ###
 #Total popularity plot by track
 topten_popularity = famer_original %>%    
   arrange(popularity) %>%
@@ -71,4 +71,4 @@ ggplot(topten_popularity, mapping = aes(y = popularity, x = pop_rank_integer, fi
   geom_col() +
   geom_label(label= topten_popularity$track_name ) +
   labs(title = "Top Tracks by Spotify's Popularity Index" , y ='Popularity' , x = 'Performer' ) +
-  guides(fill = guide_legend(reverse = TRUE))
+  guides(fill = guide_legend(title.them = element_blank, reverse = TRUE, title = 'Artist'))
