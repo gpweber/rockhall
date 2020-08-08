@@ -1,16 +1,9 @@
 ```{r}
-add_order_col %>% 
-      filter(playlist_name == input$playlist) %>% 
-      ggplot(mapping = aes(x = row_number, y = track_length, color = track_name)) +
-      geom_point() +
-      scale_y_time()
+
 ```
 
 ```{r}
- add_order_col %>% 
-      filter(playlist_name == input$playlist) %>% 
-      ggplot(mapping = aes(x = row_number, y = track_length, color = track_name)) +
-      scale_y_time()
+
     
 ```
 

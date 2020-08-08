@@ -38,21 +38,25 @@ shinyServer(function(input, output) {
       ggplot() +
       geom_histogram(mapping = aes(x = playlist_average,fill=..x..), bins = input$bins + 1, boundary = 0, show.legend = FALSE) +
       scale_fill_gradient(low="yellow", high="orange") +
-      labs(title = 'Average Spotify Popularity Score by Playlist', x = "Playlist's Spotify Popularity", y = 'Number of playlists in this range') +
+      labs(title = 'Average Spotify Popularity Score by Playlist', 
+           x = "Playlist's Spotify Popularity", 
+           y = 'Number of playlists in this range') +
       geom_label(mapping = aes(x =38, y = 35), label = 'Average Score', hjust = 0) +
       geom_vline(xintercept = mean1, label = 'Average Playlist Score', )
   })
-  output$durationPlot1 = renderPlot({
-    add_order_col %>% 
+  output$durationPlot1 = renderPlotly({
+    plot = add_order_col %>% 
       filter(playlist_name == input$playlist) %>% 
       ggplot(mapping = aes(x = row_number, y = track_length, color = track_name)) +
       geom_point() +
       scale_y_time() +
       scale_fill_continuous(guide = guide_legend()) +
-      theme(legend.position="bottom")
-    
-    
-   
-  
+      theme(legend.position="bottom",) +
+      labs(title = 'Track Length Variation per Playlist', 
+           x = "Playlist Track Order", 
+           y = 'Length of Track') +
+    ggplotly(plot) %>%
+      layout(legend = list(orientation = "v", x = -10, y =-100))
   })
 })
+  

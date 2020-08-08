@@ -56,15 +56,15 @@ dashboardPage(skin = 'black',
       ),
             
       tabItem(tabName = 'duration',
-              fluidRow(
-                selectInput(
-                  inputId = 'playlist',
-                  label = "Choose Playlist",
-                  choices = unique_playlists,
-                  selected = 1
-                  ),
-                plotOutput('durationPlot1')
-              )
+            fluidRow(
+              selectInput(
+                inputId = 'playlist',
+                label = "Choose Playlist",
+                choices = unique_playlists,
+                selected = 1
+                ),
+              plotlyOutput('durationPlot1', width = "125%")
+            )
       )
     )
   )
