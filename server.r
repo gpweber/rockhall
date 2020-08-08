@@ -1,21 +1,13 @@
 shinyServer(function(input, output) {
-<<<<<<< HEAD
   output$artistPlot = renderPlot({  
-=======
-  output$artist = renderPlot({  # { needed?? ##removed Plot from output$artistPlot...first graph!!
->>>>>>> 787d2960e64740a722370ab8af1ca996e4bc2362
     ### tab #1 ###
     # number of artist appearances
     ##Next Step: make it so that slider starts with just #1...then slide to more
     
     
     total_tracks %>% 
-<<<<<<< HEAD
       slice_max(Total_Artist_Tracks, n = 3) %>% 
       head(input$OneToFive) %>% 
-=======
-      slice_max(Total_Artist_Tracks, n = as_numeric(input$OneToFive)) %>% 
->>>>>>> 787d2960e64740a722370ab8af1ca996e4bc2362
       ggplot() +
       geom_col(mapping = aes(x = Artist, 
                              y = Total_Artist_Tracks, 
@@ -25,7 +17,6 @@ shinyServer(function(input, output) {
            x = 'Performer' ) +
       coord_flip() +
       theme(legend.position = "none")     
-<<<<<<< HEAD
   })
   #2nd tab - 1st plot
   ##popularity histogram by track
@@ -51,8 +42,4 @@ shinyServer(function(input, output) {
       geom_label(mapping = aes(x =38, y = 35), label = 'Average Score', hjust = 0) +
       geom_vline(xintercept = mean1, label = 'Average Playlist Score', )
   })
-=======
-    }
-    )      
->>>>>>> 787d2960e64740a722370ab8af1ca996e4bc2362
 })

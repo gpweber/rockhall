@@ -53,10 +53,6 @@ total_tracks = x3 %>%
 
 #change column name to Artist
 total_tracks = total_tracks %>%  rename(Artist = x1)
-<<<<<<< HEAD
-=======
-#########VISUALS##########
->>>>>>> 787d2960e64740a722370ab8af1ca996e4bc2362
 
 
 ### For tab 2 ###
