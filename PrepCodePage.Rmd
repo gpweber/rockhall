@@ -1,74 +1,6 @@
----
-title: "Prep_Code Page"
-author: "Greg"
-date: "8/6/2020"
-output: html_document
----
 
-```{r}
-library(shiny)
-library(tidyverse)
-library(shinydashboard)
-library(RColorBrewer)
-library(tidyr)
-library(data.table)
 
-famer_original = read.csv('famer.csv')
-famer = famer_original
 
-fun = function(x){
-  str_sub(x, 3,-3)
-}
-
-famer$track_artists = sapply(famer$track_artists, fun )
-famer = separate(famer, track_artists, sep = "', '", c('first_artist','second_artist','third_artist','fourth_artist', 
-          'fifth_artist', "sixth', 'seventh','eighth_artist(s)'"), extra = 'merge')
-
-famer$number_of_artists = apply(famer, 1, ( function(x) sum(is.na(x))*-1 +6) )
-
-famer$number_of_artists[2883] = 8
-
-```
-```{r}
-x = unlist(famer[4:8])
-x1 = x[!is.na(x)]
-x2 = as.data.frame(x1)
-x3 = x2 %>% 
-  rbind('Yo Gotti', 'Quavo', 'Desiigner', 'Paul Shaffer', 'Metallica')
-```
-```{r}
-total_tracks = x3 %>% 
-  count(x1, sort = TRUE, name = "Total_Artist_Tracks")
-```
-```{r}
-total_tracks %>% 
-  slice_max(Total_Artist_Tracks, n = 3)
-```
-```{r}
-# First tab - number of artist appearances
-#make it so that slider starts with just #1...then slide to more
-total_tracks$Artist = total_tracks$x1
-total_tracks %>% 
-  slice_max(Total_Artist_Tracks, n = 3) %>% 
-  ggplot() +
-  geom_col(mapping = aes(x = Artist, y = Total_Artist_Tracks, fill = Artist)) + 
-  coord_flip() +
-  theme(legend.position = "none")
-```
-
-```{r}
-#Tab 2
-#Total popularity plot by track
-topten_popularity = famer_original %>%    
-  arrange(popularity) %>%
-  select(playlist_name, track_name, popularity, track_artists) %>% 
-  mutate(pop_rank_decimal = rank(-popularity)) %>% 
-  mutate(pop_rank_integer = as.numeric(ordered(pop_rank_decimal))) %>% 
-  arrange(pop_rank_integer) %>% 
-  filter(pop_rank_integer <=3)
-topten_popularity
-  
-```
 ```{r}
 ggplot(topten_popularity, mapping = aes(y = popularity, x = pop_rank_integer, fill = track_artists)) +
   geom_col() +
@@ -77,6 +9,34 @@ ggplot(topten_popularity, mapping = aes(y = popularity, x = pop_rank_integer, fi
   guides(guide_legend(title.theme = element_blank, reverse = TRUE, title = 'Artist'))
 ```
 
+
+```{r}
+topten_popularity %>%
+      arrange(popularity) %>% 
+      slice_max(3) %>% 
+      #head(input$SlideOneToFive) %>% 
+      ggplot(mapping = aes(y = popularity, 
+                         x = pop_rank_integer, 
+                         fill = track_artists)) +
+      geom_col() +
+      geom_label(label= topten_popularity$track_name ) +
+      labs(title = "Top Tracks by Spotify's Popularity Index" ,
+           y ='Popularity' ,
+           x = 'Performer' ) #+
+      # guides(guide_legend(reverse = TRUE,
+      #                     title = 'Artist'))
+```
+
+
+
+
+
+
+
+
+
+#######################################################
+######################################################
 ```{r}
     topten_popularity %>%
       head(input$popularity)

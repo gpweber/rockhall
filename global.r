@@ -4,7 +4,8 @@ library(shinydashboard)
 library(RColorBrewer)
 library(tidyr)
 library(DT)
-library(googleVis)
+library(data.table)
+#library(googleVis)
 library(tibble)
 library(plotly)
 #csv of RockHall playlists from spotify
@@ -32,7 +33,7 @@ famer$number_of_artists[2883] = 8
 
 ############create dataframe with artist counts#####################
 #combine the 5 artist columns into one vector
-famer_index = famer
+famer_index = famer #saves df with artists separate
 
 x = unlist(famer[4:8])
 
@@ -54,8 +55,6 @@ total_tracks = x3 %>%
 total_tracks = total_tracks %>%  rename(Artist = x1)
 #########VISUALS##########
 
-  
-
 ### For tab 2 ###
 #Total popularity plot by track
 topten_popularity = famer_original %>%    
@@ -65,8 +64,9 @@ topten_popularity = famer_original %>%
   mutate(pop_rank_integer = as.numeric(ordered(pop_rank_decimal))) %>% 
   arrange(pop_rank_integer) %>% 
   filter(pop_rank_integer <=3)
-topten_popularity
 
+
+#####DON'T NEED?
 ggplot(topten_popularity, mapping = aes(y = popularity, x = pop_rank_integer, fill = track_artists)) +
   geom_col() +
   geom_label(label= topten_popularity$track_name ) +

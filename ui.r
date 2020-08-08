@@ -24,11 +24,11 @@ dashboardPage(skin = 'black',
           fluidRow(
             selectInput(
                 inputId = 'OneToFive',
-                label = "Choose Top 1-5",
-                choices = 1:5,
+                label = "Choose Top 1-3",
+                choices = 1:3,
                 selected = 1
             ),
-            plotOutput('artist'),# width = 12)
+            plotOutput('artistPlot'),# width = 12)
           )
       ),
       
@@ -36,13 +36,13 @@ dashboardPage(skin = 'black',
             fluidRow(
               sliderInput(
                 inputId = "SlideOneToFive",
-                label = "View the 5 Most Popular Artists",
+                label = "View the 3 Most Popular Artists",
                 min = 1,
-                max = 5,
+                max = 3,
                 value = 1,
                 step = 1
               ),
-              plotOutput('popularity'),
+              plotOutput('popularityPlot'),
             )
       ),
             
