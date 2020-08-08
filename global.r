@@ -50,12 +50,8 @@ x3 = x2 %>%
 total_tracks = x3 %>% 
   count(x1, sort = TRUE, name = "Total_Artist_Tracks")
 
-#Top 3 artist by number of tracks (for example...calculation not needed...n=3 will be variable)
-total_tracks %>% 
-  slice_max(Total_Artist_Tracks, n = 3)
-
 #change column name to Artist
-total_tracks$Artist = total_tracks$x1
+total_tracks = total_tracks %>%  rename(Artist = x1)
 #########VISUALS##########
 
   
