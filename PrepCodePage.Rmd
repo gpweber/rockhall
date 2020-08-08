@@ -1,1 +1,12 @@
 
+```{r}
+library(hms)
+new_hms(as.numeric(1000))
+```
+
+```{r}
+library(tidyverse)
+famer_original %>% 
+  mutate(track_length = new_hms(duration_ms/1000))
+```
+

@@ -56,6 +56,9 @@ dashboardPage(skin = 'black',
       ),
             
       tabItem(tabName = 'duration',
+              fluidRow(
+                plotOutput('durationPlot')
+              )
               
               'per album..show song lengths of tracks 
               with geom_line(need dot to say name of track)')

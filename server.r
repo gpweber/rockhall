@@ -42,4 +42,10 @@ shinyServer(function(input, output) {
       geom_label(mapping = aes(x =38, y = 35), label = 'Average Score', hjust = 0) +
       geom_vline(xintercept = mean1, label = 'Average Playlist Score', )
   })
+  output$durationPlot1 = renderPlot({
+    famer_original %>% 
+    group_by(playlist_name) %>% 
+      ggplot(mapping = aes(x = track_name, )) 
+  
+  })
 })
