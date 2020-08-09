@@ -9,10 +9,12 @@ library(data.table)
 library(tibble)
 library(plotly)
 library(hms)
+
 #csv of RockHall playlists from spotify
 #obtained with spotipy using python
 famer_original = read.csv('famer.csv')
 famer = famer_original
+
 # create function to remove first 2 and last 2 characters of a string
 fun = function(x){
   str_sub(x, 3,-3)
@@ -33,13 +35,13 @@ famer$number_of_artists = apply(famer, 1, ( function(x) sum(is.na(x))*-1 +6) )
 famer$number_of_artists[2883] = 8
 
 ############create dataframe with artist counts#####################
-#combine the 5 artist columns into one vector
+#GOAL: combine the 5 artist columns into one vector
 famer_index = famer #saves df with artists separate
 
 x = unlist(famer[4:8])
 
 #remove the NA's
-x1 = x[!is.na(x)]
+x1 = x[!(is.na(x))]
 
 #Turn into a dataframe
 x2 = as.data.frame(x1)
@@ -87,10 +89,6 @@ popularity_playlist = famer %>%
 min_sec_famer = famer_original %>% 
   mutate(track_length = new_hms(duration_ms%/%1000))
 
-#create a dataframe and list for career definign playlists
-career_defining = 
-  filter(data1 , grepl('Career Defining Playlist', playlist_name, fixed = TRUE))
-career_defining_list = unique(career_defining$playlist_name) 
 
 #create playlist 
 add_order_col = min_sec_famer %>% 
@@ -102,3 +100,20 @@ add_order_col = min_sec_famer %>%
 data1 = add_order_col %>% 
   select(playlist_order = row_number , origin_album_track_number = track_number, everything()) 
 data1 = data1[c(-3,-8)]
+
+#create a dataframe and list for career defining playlists 
+career_defining = 
+  filter(data1 , grepl('Career Defining Playlist', playlist_name, fixed = TRUE))
+career_defining_list = unique(career_defining$playlist_name) 
+
+###For tab - ARtist frequency###
+
+pivot = pivot_longer(famer_index,4:9, values_to = 'artists', names_to = 'ArtistListedOrder', values_drop_na = TRUE)
+p = distinct(pivot[c(2,9)])
+
+q = p %>% 
+  group_by(artists) %>% 
+  tally()
+q = q %>% 
+  arrange(desc(n))
+

@@ -14,7 +14,8 @@ shinyServer(function(input, output) {
       geom_col(mapping = aes(x = Artist, 
                              y = Total_Artist_Tracks, 
                              fill = Artist)) + 
-      labs(title = "Which Artists appear most?", 
+      scale_fill_gradient(low = 'green', high= 'blue'),
+      labs(title = "Which Artists has the most tracks?", 
            y ='Total Number of Tracks' , 
            x = 'Performer' ) +
       
@@ -22,14 +23,46 @@ shinyServer(function(input, output) {
       geom_text(aes(x = Artist, 
                     label = Artist, 
                     y = Total_Artist_Tracks/2), 
-                    size = 25) +
+                    size = 12) +
       theme(plot.title = element_text(color = "red", 
-                                      size = 36, 
+                                      size = 24, 
                                       face = "bold", 
                                       hjust = 0.5),
             legend.position = "none", 
             axis.text.y=element_blank())
   })
+  
+  
+  ####not finished yet####
+  output$artistPlot1 = renderPlot({  
+    ### tab #1 ###
+    # number of artist appearances
+    q %>% 
+      slice_max(n, n = 3) %>% 
+      head(input$OneToFive) %>% 
+      ggplot() +
+      geom_col(mapping = aes(x = reorder(artists, n), 
+                             y = n, 
+                             fill = artists)) + 
+      labs(title = "Which Artists appears on the most playlists?", 
+           y ='Total Number of Playlists' , 
+           x = 'Performer' ) +
+      
+      coord_flip() +
+      scale_y_reverse() +
+      geom_text(aes(x = artists, 
+                    label = artists, 
+                    y = n/2), 
+                    size = 12) +
+      theme(plot.title = element_text(color = "red", 
+                                      size = 24, 
+                                      face = "bold", 
+                                      hjust = 0.5),
+            legend.position = "none", 
+            axis.text.y=element_blank())
+  })
+  ####not finished yet####
+  
   
   #2nd tab - 1st plot
   ##popularity histogram by track
@@ -66,7 +99,7 @@ shinyServer(function(input, output) {
     popularity_playlist %>% 
       ggplot() +
       geom_histogram(mapping = aes(x = playlist_average,
-                                   fill=..x..), 
+                              fill=..x..), 
                      bins = input$bins + 1, 
                      boundary = 0, 
                      show.legend = FALSE) +
@@ -85,14 +118,19 @@ shinyServer(function(input, output) {
                                       hjust = 0.5))
   })
   output$maxpopBox <- renderInfoBox({
-    infoBox(
-      "Maximum Popularity", max((input$playlist)$popularity), icon = icon("thumbs-up", lib = 'glyphicon'),
-      color = "green"
+    infoBox("Maximum Popularity", 
+             max((input$playlist)$popularity), 
+             icon = icon("thumbs-up", 
+                         lib = 'glyphicon'),
+             color = "green"
     )
   })
   output$minpopBox <- renderInfoBox({
     infoBox(
-      "Minimum Popularity", "80%", icon = icon("thumbs-down", lib = "glyphicon"),
+      "Minimum Popularity", 
+      "80%", 
+      icon = icon("thumbs-down", 
+                  lib = "glyphicon"),
       color = "red"
     )
   })
@@ -100,7 +138,9 @@ shinyServer(function(input, output) {
     
     plot = career_defining %>% 
       filter(playlist_name == input$playlist) %>% 
-      ggplot(mapping = aes(x = playlist_order, y = popularity, color = track_name)) +
+      ggplot(mapping = aes(x = playlist_order, 
+                           y = popularity, 
+                           color = track_name)) +
       geom_point() +
       theme(legend.position= 'none') +
       labs(title = 'Career Defining Playlists', 

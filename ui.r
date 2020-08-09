@@ -34,13 +34,22 @@ dashboardPage(skin = 'black',
       ),
       tabItem(tabName = 'artist',
           fluidRow(
-            selectInput(
+            box(
+              selectInput(
                 inputId = 'OneToFive',
                 label = "Choose Top 1-3",
                 choices = 1:3,
                 selected = 1
+              )
+            )
+          ),
+          fluidRow(  
+            box(
+              plotOutput('artistPlot')
             ),
-            plotOutput('artistPlot'),# width = 12)
+            box(
+              plotOutput('artistPlot1')
+            ), 
           )
       ),
       tabItem(tabName = 'popularity',
@@ -52,7 +61,8 @@ dashboardPage(skin = 'black',
                 max = 3,
                 value = 1
               ),
-              plotOutput('popularityPlot1', width = '75%' ),
+              plotOutput('popularityPlot1', 
+                         width = '75%' ),
               
               br(),
               br(),
