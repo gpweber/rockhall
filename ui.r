@@ -52,7 +52,7 @@ dashboardPage(skin = 'black',
                 max = 3,
                 value = 1
               ),
-              plotOutput('popularityPlot1'),
+              plotOutput('popularityPlot1', width = '75%' ),
               
               br(),
               br(),
@@ -79,10 +79,10 @@ dashboardPage(skin = 'black',
               selectInput(
                 inputId = 'playlist',
                 label = "Choose Playlist",
-                choices = sort(unique_playlists),
-                selected = (sort(unique_playlists))[1]
+                choices = career_defining_list,
+                selected = (sort(career_defining_list))[1]
                 ),
-              plotlyOutput('careerPlot1', width = "125%"),
+              plotlyOutput('careerPlot1'),
               br(),
               br(),
               DT::dataTableOutput("my_grouped_table")        

@@ -7,9 +7,6 @@ shinyServer(function(input, output) {
   output$artistPlot = renderPlot({  
     ### tab #1 ###
     # number of artist appearances
-  
-    
-    
     total_tracks %>% 
       slice_max(Total_Artist_Tracks, n = 3) %>% 
       head(input$OneToFive) %>% 
@@ -33,6 +30,7 @@ shinyServer(function(input, output) {
             legend.position = "none", 
             axis.text.y=element_blank())
   })
+  
   #2nd tab - 1st plot
   ##popularity histogram by track
   output$popularityPlot1 = renderPlot({
@@ -48,7 +46,7 @@ shinyServer(function(input, output) {
       geom_col() +
       #geom_label(aes(label= str_sub(track_artists,2,-2)), show.legend = FALSE) +
       geom_text(aes(x = pop_rank_integer, 
-                    label = topten_popularity$track_name, 
+                    label = track_name, 
                     y = popularity/2), size = 25) +
       labs(title = "Top Tracks by Spotify's Popularity Index" , 
            y ='Popularity' , 
@@ -88,7 +86,7 @@ shinyServer(function(input, output) {
   })
   output$maxpopBox <- renderInfoBox({
     infoBox(
-      "Maximum Popularity", paste0(2 + input$count, "%"), icon = icon("thumbs-up", lib = 'glyphicon'),
+      "Maximum Popularity", max((input$playlist)$popularity), icon = icon("thumbs-up", lib = 'glyphicon'),
       color = "green"
     )
   })
@@ -100,19 +98,17 @@ shinyServer(function(input, output) {
   })
   output$careerPlot1 = renderPlotly({
     
-    plot = data1 %>% 
+    plot = career_defining %>% 
       filter(playlist_name == input$playlist) %>% 
-      ggplot(mapping = aes(x = playlist_order, y = track_length, color = track_name)) +
+      ggplot(mapping = aes(x = playlist_order, y = popularity, color = track_name)) +
       geom_point() +
-      scale_y_time() +
-     # scale_fill_continuous(guide = guide_legend()) +
-      #theme(legend.position="bottom",) +
-      labs(title = 'Track Length Variation per Playlist', 
+      theme(legend.position= 'none') +
+      labs(title = 'Career Defining Playlists', 
            x = "Playlist Track Order", 
-           y = 'Length of Track') +
+           y = 'Track Popularity') +
       scale_x_continuous()
     ggplotly(plot) %>%
-      layout(xaxis = list(dtick = 2), legend = list(orientation = "v"))#, x = -10, y =-100))
+      layout(xaxis = list(dtick = 2))#, x = -10, y =-100))
   })
   output$my_grouped_table = DT::renderDataTable({datatable(
     data1 %>% filter(playlist_name == input$playlist), rownames = FALSE)

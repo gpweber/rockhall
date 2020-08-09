@@ -87,9 +87,10 @@ popularity_playlist = famer %>%
 min_sec_famer = famer_original %>% 
   mutate(track_length = new_hms(duration_ms%/%1000))
 
-#create a playlists list
-unique_playlists = unique(famer$playlist_name)
-order(unique_playlists)
+#create a dataframe and list for career definign playlists
+career_defining = 
+  filter(data1 , grepl('Career Defining Playlist', playlist_name, fixed = TRUE))
+career_defining_list = unique(career_defining$playlist_name) 
 
 #create playlist 
 add_order_col = min_sec_famer %>% 
