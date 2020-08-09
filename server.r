@@ -1,4 +1,7 @@
 shinyServer(function(input, output) {
+  output$mytable = DT::renderDataTable({
+    data1
+  }) 
   output$artistPlot = renderPlot({  
     ### tab #1 ###
     # number of artist appearances
@@ -54,7 +57,7 @@ shinyServer(function(input, output) {
       theme(legend.position="bottom",) +
       labs(title = 'Track Length Variation per Playlist', 
            x = "Playlist Track Order", 
-           y = 'Length of Track') +
+           y = 'Length of Track') 
     ggplotly(plot) %>%
       layout(legend = list(orientation = "v", x = -10, y =-100))
   })

@@ -55,7 +55,6 @@ total_tracks = x3 %>%
 #change column name to Artist
 total_tracks = total_tracks %>%  rename(Artist = x1)
 
-
 ### For tab - popularity ###
 ##Plot1##
 #Total popularity plot by track
@@ -86,3 +85,9 @@ unique_playlists = unique(famer$playlist_name)
 add_order_col = min_sec_famer %>% 
   group_by(playlist_name) %>% 
   mutate(row_number = row_number())
+
+### For tab - data ###
+ 
+data1 = add_order_col %>% 
+  select(playlist_order = row_number , origin_album_track_number = track_number, everything()) 
+data1 = data1[c(-3,-8)]
