@@ -8,6 +8,7 @@ library(data.table)
 #library(googleVis)
 library(tibble)
 library(plotly)
+library(hms)
 #csv of RockHall playlists from spotify
 #obtained with spotipy using python
 famer_original = read.csv('famer.csv')
@@ -58,6 +59,14 @@ total_tracks = total_tracks %>%  rename(Artist = x1)
 ### For tab - popularity ###
 ##Plot1##
 #Total popularity plot by track
+# 
+# fun1 = function(x){
+#   str_sub(x, 2,-2)
+# }
+# 
+# #remove brackets and extra quotes from beginning and end of artists listings
+# famer$track_artists = sapply(famer$track_artists, fun )
+
 topten_popularity = famer_original %>%    
   arrange(popularity) %>%
   select(playlist_name, track_name, popularity, track_artists) %>% 
@@ -80,6 +89,7 @@ min_sec_famer = famer_original %>%
 
 #create a playlists list
 unique_playlists = unique(famer$playlist_name)
+order(unique_playlists)
 
 #create playlist 
 add_order_col = min_sec_famer %>% 

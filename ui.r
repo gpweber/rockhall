@@ -53,6 +53,12 @@ dashboardPage(skin = 'black',
                 value = 1
               ),
               plotOutput('popularityPlot1'),
+              
+              br(),
+              br(),
+              br(),
+              br(),
+              
             ) ,
             fluidRow(
               sliderInput(
@@ -71,11 +77,15 @@ dashboardPage(skin = 'black',
               selectInput(
                 inputId = 'playlist',
                 label = "Choose Playlist",
-                choices = unique_playlists,
-                selected = 1
+                choices = sort(unique_playlists),
+                selected = (sort(unique_playlists))[1]
                 ),
-              plotlyOutput('durationPlot1', width = "125%")
+              plotlyOutput('durationPlot1', width = "125%"),
+              br(),
+              br(),
+              DT::dataTableOutput("my_grouped_table")        
             )
+        
       )
     )
   )
