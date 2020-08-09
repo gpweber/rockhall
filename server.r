@@ -86,7 +86,20 @@ shinyServer(function(input, output) {
                                       face = "bold", 
                                       hjust = 0.5))
   })
-  output$durationPlot1 = renderPlotly({
+  output$maxpopBox <- renderInfoBox({
+    infoBox(
+      "Maximum Popularity", paste0(2 + input$count, "%"), icon = icon("thumbs-up", lib = 'glyphicon'),
+      color = "green"
+    )
+  })
+  output$minpopBox <- renderInfoBox({
+    infoBox(
+      "Minimum Popularity", "80%", icon = icon("thumbs-down", lib = "glyphicon"),
+      color = "red"
+    )
+  })
+  output$careerPlot1 = renderPlotly({
+    
     plot = data1 %>% 
       filter(playlist_name == input$playlist) %>% 
       ggplot(mapping = aes(x = playlist_order, y = track_length, color = track_name)) +

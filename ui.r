@@ -18,8 +18,8 @@ dashboardPage(skin = 'black',
       menuItem("Spotify's Popularity Ranking",
                 tabName = 'popularity' , 
                 icon = icon('spotify')),
-      menuItem('Duration', 
-                tabName = 'duration', 
+      menuItem('Career Defining Playlists', 
+                tabName = 'career', 
                 icon = icon('headphones'))
      #menuItem("Learn more about App's Creator: Gregory Weber", tabName = 'author', icon = icon('info'))
     )   
@@ -72,15 +72,17 @@ dashboardPage(skin = 'black',
             )
       ),
             
-      tabItem(tabName = 'duration',
+      tabItem(tabName = 'career',
             fluidRow(
+              infoBoxOutput("maxpopBox"),
+              infoBoxOutput("minpopBox"),
               selectInput(
                 inputId = 'playlist',
                 label = "Choose Playlist",
                 choices = sort(unique_playlists),
                 selected = (sort(unique_playlists))[1]
                 ),
-              plotlyOutput('durationPlot1', width = "125%"),
+              plotlyOutput('careerPlot1', width = "125%"),
               br(),
               br(),
               DT::dataTableOutput("my_grouped_table")        
