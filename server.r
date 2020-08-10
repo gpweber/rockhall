@@ -80,7 +80,7 @@ shinyServer(function(input, output) {
                          fill = str_sub(track_artists,2,-2), 
                          show.legend = FALSE) 
     )+
-      geom_col() +
+      geom_col(show.legend = FALSE) +
       #geom_label(aes(label= str_sub(track_artists,2,-2)), show.legend = FALSE) +
       geom_text(aes(x = pop_rank_integer, 
                     label = track_name, 
@@ -143,9 +143,13 @@ shinyServer(function(input, output) {
     plot = career_defining %>% 
       filter(playlist_name == input$playlist) %>% 
       ggplot(mapping = aes(x = playlist_order, 
-                           y = popularity, 
-                           color = track_name)) +
-      geom_point() +
+                           y = popularity 
+                           )
+             ) +
+      
+      geom_line() +
+      stat_peaks(geom = "point", colour = "red") +
+      stat_valleys(colour = "blue") +
       theme(legend.position= 'none') +
       labs(title = 'Career Defining Playlists', 
            x = "Playlist Track Order", 
@@ -157,5 +161,6 @@ shinyServer(function(input, output) {
   output$my_grouped_table = DT::renderDataTable({datatable(
     data1 %>% filter(playlist_name == input$playlist), rownames = FALSE)
   }) 
+ 
 })
   

@@ -9,7 +9,8 @@ library(data.table)
 library(tibble)
 library(plotly)
 library(hms)
-#library(quantmod)???
+library(ggpmisc)
+
 
 
 #csv of RockHall playlists from spotify

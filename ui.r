@@ -61,8 +61,7 @@ dashboardPage(skin = 'black',
                 max = 3,
                 value = 1
               ),
-              plotOutput('popularityPlot1', 
-                         width = '75%' ),
+              plotOutput('popularityPlot1'),
               
               br(),
               br(),
@@ -95,7 +94,10 @@ dashboardPage(skin = 'black',
               plotlyOutput('careerPlot1'),
               br(),
               br(),
-              DT::dataTableOutput("my_grouped_table")        
+              DT::dataTableOutput("my_grouped_table"),
+              br(),
+              br(),
+              plotlyOutput('careerPlot2'),
             )
         
       )
