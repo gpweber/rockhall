@@ -14,8 +14,8 @@ shinyServer(function(input, output) {
       geom_col(mapping = aes(x = Artist, 
                              y = Total_Artist_Tracks, 
                              fill = Artist)) + 
-      scale_fill_gradient(low = 'green', high= 'blue'),
-      labs(title = "Which Artists has the most tracks?", 
+      scale_fill_manual(values = c("#FC4E07" ,"#00AFBB", "#E7B800" )) + #c("#00AFBB", "#E7B800", "#FC4E07")
+      labs(title = "Which Artists has the most tracks?",               # (blue,         yellow,      red)
            y ='Total Number of Tracks' , 
            x = 'Performer' ) +
       
@@ -25,11 +25,13 @@ shinyServer(function(input, output) {
                     y = Total_Artist_Tracks/2), 
                     size = 12) +
       theme(plot.title = element_text(color = "red", 
-                                      size = 24, 
+                                      size = 36, 
                                       face = "bold", 
                                       hjust = 0.5),
             legend.position = "none", 
-            axis.text.y=element_blank())
+            axis.text.y=element_blank(),
+            axis.title.x = element_text(size = 30),
+            axis.title.y = element_text(size = 30))
   })
   
   
@@ -44,6 +46,7 @@ shinyServer(function(input, output) {
       geom_col(mapping = aes(x = reorder(artists, n), 
                              y = n, 
                              fill = artists)) + 
+      scale_fill_manual(values = c("#E7B800","#FC4E07","#00AFBB")) +
       labs(title = "Which Artists appears on the most playlists?", 
            y ='Total Number of Playlists' , 
            x = 'Performer' ) +
@@ -55,14 +58,15 @@ shinyServer(function(input, output) {
                     y = n/2), 
                     size = 12) +
       theme(plot.title = element_text(color = "red", 
-                                      size = 24, 
+                                      size = 36, 
                                       face = "bold", 
                                       hjust = 0.5),
             legend.position = "none", 
-            axis.text.y=element_blank())
+            axis.text.y=element_blank(),
+            axis.title.x = element_text(size = 30),
+            axis.title.y = element_text(size = 30))
   })
   ####not finished yet####
-  
   
   #2nd tab - 1st plot
   ##popularity histogram by track

@@ -38,8 +38,8 @@ dashboardPage(skin = 'black',
               selectInput(
                 inputId = 'OneToFive',
                 label = "Choose Top 1-3",
-                choices = 1:3,
-                selected = 1
+                choices = 0:3,
+                selected = 0
               )
             )
           ),
