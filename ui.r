@@ -4,10 +4,10 @@ dashboardPage(skin = 'black',
                   #image = 'rockhall_spotify.png'#titleWidth = 225), 
   ),
               
-  
+
   dashboardSidebar(
     #width = 225
-   # sidebarUserPanel("Gregory Weber", image = img(src = 'IMG_3969.JPG')), #???Need this???
+   # sidebarUserPanel("Gregory Weber", img (src = 'IMG_3969.JPG')), #???Need this???
     sidebarMenu(
       menuItem('The Data', 
                 tabName = 'data', 
@@ -28,6 +28,7 @@ dashboardPage(skin = 'black',
   dashboardBody(
     tabItems(
       tabItem(tabName = 'data',
+              img(src = "rockhall_spotify.png", width = '75%'),
         fluidRow(
           DT::dataTableOutput("mytable")        
         )
@@ -53,44 +54,51 @@ dashboardPage(skin = 'black',
           )
       ),
       tabItem(tabName = 'popularity',
-            fluidRow(
+          fluidRow(
+            box(
               sliderInput(
                 inputId = "SlideOneToFive",
-                label = "View the 3 Most Popular Artists",
+                label = "View the Top 3 Artists by Popularity Index",
                 min = 1,
                 max = 3,
                 value = 1
-              ),
-              plotOutput('popularityPlot1'),
-              
-              br(),
-              br(),
-              br(),
-              br(),
-              
-            ) ,
-            fluidRow(
-              sliderInput(
-                inputId = "bins",
-                label = "Divide into this many pieces:",
-                min = 2,
-                max = 27,
-                value = 14),
-              
-              plotOutput('popularityPlot2')
+              )
             )
+          ),
+          fluidRow(
+            plotOutput('popularityPlot1')
+          ),
+              
+              br(),
+              br(),
+              br(),
+              br(),
+              
+          
+            fluidRow(
+              box(
+                sliderInput(
+                  inputId = "bins",
+                  label = "All Playlist Averages Below. You can cut into 4-20 sections.",
+                  min = 4,
+                  max = 20,
+                  value = 12)
+              ),
+            ),
+          fluidRow(
+              plotOutput('popularityPlot2')
+          )
       ),
             
       tabItem(tabName = 'career',
             fluidRow(
-              infoBoxOutput("maxpopBox"),
-              infoBoxOutput("minpopBox"),
               selectInput(
                 inputId = 'playlist',
-                label = "Choose Playlist",
+                label = "Choose a Career Defining Playlist",
                 choices = career_defining_list,
                 selected = (sort(career_defining_list))[1]
                 ),
+              
               plotlyOutput('careerPlot1'),
               br(),
               br(),

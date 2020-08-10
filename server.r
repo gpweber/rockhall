@@ -1,7 +1,13 @@
 shinyServer(function(input, output) {
   
   output$mytable = DT::renderDataTable({
-    data1
+    data1 %>% rename(`Playlist Order`= playlist_order,
+                     `Origin Album Track Number` = origin_album_track_number,
+                     `Playlist Name` = playlist_name,
+                     `Track Name` = track_name,
+                     `Track Artists` = track_artists,
+                     Popularity = popularity,
+                     `Track Length` = track_length)
   }) 
   
   output$artistPlot = renderPlot({  
@@ -25,7 +31,7 @@ shinyServer(function(input, output) {
                     y = Total_Artist_Tracks/2), 
                     size = 12) +
       theme(plot.title = element_text(color = "red", 
-                                      size = 36, 
+                                      size = 23, 
                                       face = "bold", 
                                       hjust = 0.5),
             legend.position = "none", 
@@ -58,7 +64,7 @@ shinyServer(function(input, output) {
                     y = n/2), 
                     size = 12) +
       theme(plot.title = element_text(color = "red", 
-                                      size = 36, 
+                                      size = 18, 
                                       face = "bold", 
                                       hjust = 0.5),
             legend.position = "none", 
@@ -84,14 +90,14 @@ shinyServer(function(input, output) {
       #geom_label(aes(label= str_sub(track_artists,2,-2)), show.legend = FALSE) +
       geom_text(aes(x = pop_rank_integer, 
                     label = track_name, 
-                    y = popularity/2), size = 25) +
+                    y = popularity/2), size = 12) +
       labs(title = "Top Tracks by Spotify's Popularity Index" , 
            y ='Popularity' , 
            x = 'Performer' ) +
       guides(guide_legend(title.theme = element_blank) )+
       coord_flip() +
       theme(plot.title = element_text(color = "green", 
-                                      size = 48, 
+                                      size = 30, 
                                       face = "bold", 
                                       hjust = 0.5))
   })
@@ -108,35 +114,19 @@ shinyServer(function(input, output) {
                      boundary = 0, 
                      show.legend = FALSE) +
       scale_fill_gradient(low="yellow", high="orange") +
-      labs(title = 'Average Spotify Popularity Score by Playlist', 
+      labs(title = 'Average Score by Playlist (All Playlist Tracks Averaged)', 
            x = "Playlist's Spotify Popularity", 
            y = 'Number of playlists in this range') +
       geom_label(mapping = aes(x =38, y = 35), 
-                 label = 'Average Score', 
+                 label = 'Average Rock & Roll Hall of Fame Score', 
                  hjust = 0) +
       geom_vline(xintercept = mean1, 
                  label = 'Average Playlist Score', ) +
       theme(plot.title = element_text(color = "orange", 
-                                      size = 48, 
+                                      size = 30, 
                                       face = "bold", 
                                       hjust = 0.5))
-  })
-  output$maxpopBox <- renderInfoBox({
-    infoBox("Maximum Popularity", 
-             max((input$playlist)$popularity), 
-             icon = icon("thumbs-up", 
-                         lib = 'glyphicon'),
-             color = "green"
-    )
-  })
-  output$minpopBox <- renderInfoBox({
-    infoBox(
-      "Minimum Popularity", 
-      "80%", 
-      icon = icon("thumbs-down", 
-                  lib = "glyphicon"),
-      color = "red"
-    )
+  
   })
   output$careerPlot1 = renderPlotly({
     
@@ -145,11 +135,10 @@ shinyServer(function(input, output) {
       ggplot(mapping = aes(x = playlist_order, 
                            y = popularity 
                            )
-             ) +
-      
+      ) +
       geom_line() +
       stat_peaks(geom = "point", colour = "red") +
-      stat_valleys(colour = "blue") +
+      stat_valleys(geom = 'point',colour = "blue") +
       theme(legend.position= 'none') +
       labs(title = 'Career Defining Playlists', 
            x = "Playlist Track Order", 
